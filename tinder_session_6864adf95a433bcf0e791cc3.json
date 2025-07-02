@@ -1,0 +1,19 @@
+{
+  "appId": "825DDA558L.com.cardify.tinder+19302822947",
+  "userId": "6864adf95a433bcf0e791cc3",
+  "onboardingToken": "be38ed20-d931-417b-88ac-35843b814934",
+  "refreshToken": "eyJhbGciOiJIUzI1NiJ9.MTkzMDI4MjI5NDc.hbfidM8g501fGUliTz2eIFXRv6dH5j-xZT8yz4mXups",
+  "xAuthToken": null,
+  "persistentDeviceId": "4ed1bcaa19d14a8c",
+  "installId": "4B87BE69-D28C-4ECF-9ABA-2BCFEA721062",
+  "userAgent": "Tinder/14.21.0 (iPhone10,1; iOS 14.2; Scale/2.00)",
+  "tinderVersion": "14.21.0",
+  "appVersion": "5546",
+  "osVersion": 140200000000,
+  "platform": "ios",
+  "encodedDeviceModel": "aVBob25lMTAsMQ==",
+  "encodedDeviceCarrier": "VmVyaXpvbg==",
+  "appsFlyerId": "8381256627204-1509192982500178867",
+  "language": "en-US",
+  "proxy": null
+}
