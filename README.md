@@ -1,97 +1,225 @@
-# Bulk Tinder Profile Creator
+# Bulk Tinder Profile Creator with DaisySMS Integration
 
-## Description
-**Bulk Tinder Profile Creator** is a powerful Tinder automation script (a Tinder bot) that enables **bulk account creation** and profile generation on Tinder with minimal manual effort. It streamlines the entire Tinder signup process by automating everything from phone number verification (OTP) to uploading profile photos and setting up profile details. This tool is designed for efficiency and can help developers, testers, or growth hackers create multiple Tinder profiles quickly. By simulating the official app's onboarding steps through code, this profile generator saves time and ensures a consistent setup for each account.
+An automated Tinder profile creation tool that uses DaisySMS API for phone number verification, eliminating the need for manual phone number input and SMS verification.
 
-## Features
-- **End-to-End Tinder Account Automation**: Fully automates the Tinder registration process, acting as a Tinder bot that handles account creation from start to finish (phone verification, profile setup, etc.).  
-- **Bulk Profile Creation**: Allows you to create Tinder profiles in bulk. You can run the script repeatedly to generate as many accounts as needed, each with unique credentials and saved session data.  
-- **Phone OTP Verification**: Integrates Tinder’s SMS verification flow by sending a code to your phone number and prompting for the OTP. The script automatically submits the OTP to Tinder’s API for you, streamlining the verification step.  
-- **Profile Details Setup**: Automates entering profile information such as name, date of birth, gender, and sexual orientation preferences (men, women, everyone). It ensures the user is 18+ (validating birth date) and formats the data correctly for Tinder.  
-- **Interests & Preferences**: Sets up additional profile details automatically, including **Interests** (hobbies like Travel, Movies, Reading), **Relationship Intent** (e.g. long-term), **Education Level**, and **Zodiac Sign**. These details make each profile look complete without manual input.  
-- **Profile Photo Uploads**: Automatically uploads profile pictures to the new account. The script scans a `photos/` directory for images (JPEG/PNG), validates them, and uploads up to Tinder’s max of 9 photos per profile. It includes checks on image type and size, and provides feedback during upload (with retries for reliability).  
-- **Proxy Support**: Supports HTTP and SOCKS5 proxies for account creation. You can route traffic through a proxy to manage IP addresses for each account (useful for privacy or avoiding IP rate limits). The script will test the proxy connection and show the external IP being used for Tinder’s API.  
-- **Location Auto-Detection**: After account creation, the tool can automatically set the profile’s location based on the proxy’s IP address. It fetches approximate latitude/longitude from the IP and updates the Tinder profile location, emulating the Tinder app’s geolocation features.  
-- **Robust Error Handling**: Built with error handling and retry logic for network calls. If an API call fails or returns an error (like a temporary network issue or a 401 Unauthorized), the script will retry and even refresh the authentication token if needed. It also attempts to handle captcha or challenge prompts from Tinder – if a challenge is encountered, it will try to solve it before proceeding.  
-- **Session & Credential Saving**: After successful creation, the script saves the new account’s details. It outputs a summary including the Tinder user ID and the IP used. A session file (`tinder_session_<userID>.json`) is saved containing authentication tokens and device info for that account. It also logs the credentials in `tinder_credentials.json` for easy reference.
+## 🚀 Features
 
-## Installation Guide
-Follow these steps to set up the Bulk Tinder Profile Creator on your system:
+- **Automated Phone Verification**: Uses DaisySMS API to automatically rent phone numbers and receive SMS verification codes
+- **Bulk Profile Creation**: Create multiple Tinder profiles efficiently
+- **Photo Upload**: Automatically uploads photos from the `photos/` directory
+- **Proxy Support**: HTTP and SOCKS5 proxy support for different IP addresses
+- **Error Handling**: Comprehensive error handling with retry mechanisms
+- **Profile Customization**: Set up complete profiles with interests, education, relationship intent, etc.
 
-1. **Clone the Repository**:  
+## 📋 Prerequisites
+
+### 1. DaisySMS Account Setup
+1. Visit [DaisySMS.com](https://daisysms.com/)
+2. Create an account
+3. Add funds to your balance (recommended: $10+ for multiple profiles)
+4. Get your API key from the API section
+
+### 2. System Requirements
+- Python 3.8+
+- All dependencies from `requirements.txt`
+- Photos for profile (place in `photos/` directory)
+
+## 🛠 Installation
+
+1. **Clone the repository:**
    ```bash
-   git clone https://github.com/riyadmondol2006/Bulk-Tinder-Profile-Creator.git
+   git clone <repository-url>
    cd Bulk-Tinder-Profile-Creator
    ```
 
-2. **Install Python**:  
-   Ensure you have **Python 3** installed. Verify by running:
-   ```bash
-   python --version
-   ```
-   If not installed, download it from the [official Python website](https://www.python.org/) or use your package manager.
-
-3. **Install Dependencies**:  
-   Install the required Python libraries. If a `requirements.txt` file is provided, run:
+2. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
-   Otherwise, install the major libraries individually:
+
+3. **Add your photos:**
+   - Place your photos in the `photos/` directory
+   - Supported formats: JPG, JPEG, PNG
+   - Minimum 2 photos required
+   - Maximum 9 photos supported
+
+## 🚀 Quick Start
+
+### Step 1: Test DaisySMS Setup
+Before running the full registration, test your DaisySMS API setup:
+
    ```bash
-   pip install curl-cffi blackboxprotobuf cryptography
-   ```
+python test_daisysms.py
+```
 
-4. **Prepare Profile Photos**:  
-   Create a folder named `photos` in the project directory and add the images you want to use for Tinder profile pictures. Tinder requires at least 2 photos for a new profile, so make sure to include 2 or more `.jpg` or `.png` images.
+This will:
+- Validate your API key
+- Check your account balance
+- Test number rental for Tinder service
+- Cancel the rental to avoid charges
 
-5. **Phone Number Setup**:  
-   Have a valid phone number ready that can receive SMS. This number will be used to receive the OTP for Tinder’s phone verification during the account creation process.
-
-## Usage Guide
-Once the installation is complete, follow these steps to run the script:
-
-- **Run the Script**:  
-   Open a terminal in the project directory and run:
+### Step 2: Run Profile Creation
    ```bash
    python run.py
    ```
 
-- **Proxy Selection**:  
-   The script will prompt you to choose a proxy:
-   - **1**: HTTP Proxy  
-   - **2**: SOCKS5 Proxy  
-   - **3**: No Proxy  
-   Enter the appropriate number to configure proxy usage. If you choose a proxy, you will need to provide the proxy address in the specified format.
+The script will guide you through:
+1. **DaisySMS Configuration**: Enter your API key
+2. **Proxy Setup**: Choose HTTP, SOCKS5, or no proxy
+3. **Profile Information**: Name, date of birth, gender, interests, email
+4. **Photo Upload**: Automatic upload from `photos/` directory
+5. **Phone Verification**: Automated using DaisySMS
+6. **Profile Completion**: Additional settings and finalization
 
-- **Enter Profile Details**:  
-   You will be prompted to enter:
-   - **Name**
-   - **Date of Birth**
-   - **Gender**
-   - **Sexual Preference**
-   - **Email Address**
+## 📞 DaisySMS Integration Details
 
-- **Phone Verification (OTP)**:  
-   Input your phone number and enter the OTP when received.
+### Service Code
+- **Tinder Service Code**: `oi`
+- **Max Price**: $3.00 per number (configurable)
+- **Timeout**: 3 minutes for SMS reception
 
-- **Onboarding & Profile Setup**:  
-   The script configures the profile, interests, and preferences.
+### API Operations
+1. **Rent Number**: Automatically rents a phone number for Tinder verification
+2. **SMS Reception**: Polls for SMS verification code every 3 seconds
+3. **Code Extraction**: Extracts verification code from received SMS
+4. **Cleanup**: Marks rental as done to free up slots
 
-- **Photo Upload**:  
-   Scans the `photos/` folder and uploads up to 9 images.
+### Error Handling
+- **No Numbers Available**: Retries with delays
+- **Price Exceeded**: Configurable max price limit
+- **SMS Timeout**: 180-second timeout with automatic retry
+- **Network Errors**: Automatic retry with exponential backoff
 
-- **Finalize Account**:  
-   Completes the registration and saves session details.
+## 🔧 Configuration Options
 
-## Contact Information
-For inquiries, support, or project quotes:
+### DaisySMS Settings
+```python
+# In run.py, you can modify these parameters:
+rental_id, phone_number = daisysms_client.rent_number(
+    service='oi',           # Tinder service code
+    max_price=3.0,          # Maximum price in USD
+    max_retries=3           # Retry attempts
+)
 
-- **YouTube**: [Reversesio](https://www.youtube.com/@reversesio)
-- **Blog**: [reversesio.com](http://reversesio.com/)
-- **Simple Project Quotes**: [reversesio.shop](http://reversesio.shop/)
-- **Telegram**: [@riyadmondol2006](https://t.me/riyadmondol2006)
-- **Email**: [riyadmondol2006@gmail.com](mailto:riyadmondol2006@gmail.com)
+otp_code = daisysms_client.get_sms_code(
+    rental_id,
+    timeout=180,            # SMS timeout in seconds
+    poll_interval=3         # Polling interval in seconds
+)
+```
 
----
-*Star the repository on GitHub if you find this project useful!*
+### Proxy Configuration
+- **HTTP Proxy**: `http://username:password@ip:port`
+- **SOCKS5 Proxy**: `socks5://username:password@ip:port`
+- **Authentication**: Supports username/password authentication
+
+## 📁 File Structure
+
+```
+Bulk-Tinder-Profile-Creator/
+├── run.py                 # Main registration script
+├── test_daisysms.py      # DaisySMS API test script
+├── tinder_client.py      # Tinder API client
+├── requirements.txt      # Python dependencies
+├── photos/               # Directory for profile photos
+│   ├── photo1.jpg
+│   ├── photo2.png
+│   └── ...
+├── proto/                # Protocol buffer definitions
+└── blackboxprotobuf/     # Protocol buffer handling
+```
+
+## 🔍 Troubleshooting
+
+### Common DaisySMS Issues
+
+1. **"NO_NUMBERS" Error**
+   - No Tinder numbers available at the moment
+   - Try again in 5-10 minutes
+   - Peak hours may have limited availability
+
+2. **"MAX_PRICE_EXCEEDED" Error**
+   - Current price is higher than your max_price setting
+   - Increase max_price in the script or wait for prices to decrease
+
+3. **"NO_MONEY" Error**
+   - Add more funds to your DaisySMS account
+   - Each Tinder verification typically costs $0.50-$2.00
+
+4. **"TOO_MANY_ACTIVE_RENTALS" Error**
+   - Complete or cancel existing rentals
+   - Maximum is typically 20 active rentals
+
+### SMS Reception Issues
+
+1. **SMS Timeout**
+   - Sometimes SMS delivery can be delayed
+   - The script automatically retries with a new number
+   - Try during off-peak hours for better reliability
+
+2. **Invalid Verification Code**
+   - Rare issue with SMS parsing
+   - Script will automatically retry with a new number
+
+### Profile Creation Issues
+
+1. **Photo Upload Failures**
+   - Check image file format (JPG, PNG supported)
+   - Ensure images are not corrupted
+   - Verify image file sizes (< 5MB recommended)
+
+2. **Captcha Challenges**
+   - Script includes captcha handling
+   - Manual intervention may be required for complex captchas
+
+## 💡 Tips for Success
+
+1. **Account Balance**: Keep sufficient balance ($10+ recommended)
+2. **Photo Quality**: Use high-quality, clear photos
+3. **Timing**: Run during off-peak hours for better number availability
+4. **Proxy Rotation**: Use different proxies for each profile
+5. **Rate Limiting**: Don't create too many profiles rapidly
+
+## 🛡 Security Considerations
+
+- **API Key Protection**: Never share your DaisySMS API key
+- **Proxy Safety**: Use reputable proxy services
+- **Data Privacy**: Be cautious with personal information
+- **Rate Limiting**: Respect service rate limits to avoid blocks
+
+## 📊 Cost Breakdown
+
+Typical costs per profile creation:
+- **Phone Verification**: $0.50 - $2.00
+- **Proxy (optional)**: $0.01 - $0.10
+- **Total per profile**: $0.50 - $2.10
+
+## 🤝 Support
+
+For issues related to:
+- **DaisySMS API**: Contact [DaisySMS Support](mailto:support@daisysms.com)
+- **Script Issues**: Check troubleshooting section above
+- **Tinder API Changes**: Monitor for updates
+
+## ⚖️ Disclaimer
+
+This tool is for educational and testing purposes. Users are responsible for:
+- Complying with Tinder's Terms of Service
+- Following local laws and regulations
+- Using the tool ethically and responsibly
+
+## 📝 Changelog
+
+### v2.0.0 - DaisySMS Integration
+- Added automated phone number verification
+- Integrated DaisySMS API client
+- Enhanced error handling and retry mechanisms
+- Added test script for API validation
+- Improved user experience with automated flow
+
+### v1.0.0 - Initial Release
+- Basic Tinder profile creation
+- Manual phone verification
+- Photo upload functionality
+- Proxy support
 
